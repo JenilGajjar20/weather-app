@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import PreviewState from "../views/PreviewState.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -10,6 +11,14 @@ const router = createRouter({
       component: HomeView,
       meta: {
         title: "Home",
+      },
+    },
+    {
+      path: "/preview/:country/:state",
+      name: "previewState",
+      component: PreviewState,
+      meta: {
+        title: "Preview Weather",
       },
     },
   ],

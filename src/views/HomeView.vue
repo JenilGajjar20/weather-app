@@ -21,11 +21,12 @@
           <li
             v-for="(searchItem, index) in inputResults"
             :key="index"
-            class="text-sm md:text-base flex items-center justify-between border-b border-gray-500 last:border-0 py-2"
+            class="text-sm md:text-base flex items-center justify-between border-b border-gray-500 last:border-0 p-2 cursor-pointer"
+            @click="previewSearch(searchItem)"
           >
             <div>
               <p>{{ searchItem.name }}</p>
-              <span class="text-xs text-blue-400"
+              <span class="text-xs text-blue-700"
                 >{{ searchItem.country }} - {{ searchItem.state }}</span
               >
             </div>
@@ -43,12 +44,14 @@
 <script setup>
 import { ref } from "vue";
 import axios from "axios";
+import { useRouter } from "vue-router";
 
 const searchInput = ref("");
 const searchLimit = ref(5);
 const queryTimeout = ref(null);
 const inputResults = ref(null);
 const searchError = ref(null);
+const router = useRouter();
 
 const searchResults = () => {
   clearTimeout(queryTimeout.value);
@@ -67,6 +70,21 @@ const searchResults = () => {
     inputResults.value = null;
   }, 300);
 };
-</script>
 
-<style></style>
+const previewSearch = (data) => {
+  console.log("DATA: ", data);
+  let country = data?.country;
+  let state = data?.state;
+  router.push({
+    name: "previewState",
+    params: {
+      country,
+      state,
+    },
+    query: {
+      lat: data?.lat,
+      lon: data?.lon,
+    },
+  });
+};
+</script>
