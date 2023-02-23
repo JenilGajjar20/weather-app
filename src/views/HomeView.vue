@@ -75,15 +75,18 @@ const previewSearch = (data) => {
   console.log("DATA: ", data);
   let country = data?.country;
   let state = data?.state;
+  let value = searchInput.value;
   router.push({
     name: "previewState",
     params: {
       country,
       state,
+      value,
     },
     query: {
       lat: data?.lat,
       lon: data?.lon,
+      preview: true,
     },
   });
 };

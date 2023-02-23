@@ -14,7 +14,7 @@ const router = createRouter({
       },
     },
     {
-      path: "/preview/:country/:state",
+      path: "/preview/:country/:state/:value",
       name: "previewState",
       component: PreviewState,
       meta: {

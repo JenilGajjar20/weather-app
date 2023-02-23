@@ -1,5 +1,5 @@
 <template>
-  <div class="font-Roboto h-screen bg-blue-900">
+  <div class="font-Roboto bg-blue-900">
     <Navbar />
     <RouterView />
   </div>
