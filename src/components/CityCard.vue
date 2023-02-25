@@ -3,7 +3,12 @@
     class="flex justify-between bg-white text-blue-700 py-4 px-3 rounded cursor-pointer"
   >
     <div class="flex flex-col gap-2">
-      <h2 class="text-xl">{{ city.state }}</h2>
+      <h2 class="text-xl">
+        <span v-if="city.value !== city.state">
+          {{ city.value + ", " }}
+        </span>
+        {{ city.state }}
+      </h2>
       <h3>{{ city.country }}</h3>
     </div>
 

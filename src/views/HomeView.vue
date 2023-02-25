@@ -10,7 +10,7 @@
       />
       <ul
         v-if="inputResults"
-        class="absolute bg-white text-blue-900 font-bold w-full py-2 px-4 top-16 rounded space-y-2"
+        class="absolute bg-white text-blue-900 font-bold w-full py-2 px-4 top-16 rounded space-y-2 shadow-2xl"
       >
         <p v-if="searchError">Something went wrong. Try Again!</p>
         <p v-if="!serverError && inputResults.length === 0">
@@ -43,7 +43,7 @@
       <Suspense>
         <CityList />
         <template #fallback>
-          <p>Loading...</p>
+          <CityCardShimmer />
         </template>
       </Suspense>
     </div>
@@ -55,6 +55,7 @@ import { ref } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
 import CityList from "@/components/CityList.vue";
+import CityCardShimmer from "@/components/Shimmers/CityCardShimmer.vue";
 
 const searchInput = ref("");
 const searchLimit = ref(5);

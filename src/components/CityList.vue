@@ -1,9 +1,9 @@
 <template>
+  <h2 class="text-xl py-4 border-b-2 border-blue-500">
+    Tracked Cities({{ savedCities.length }})
+  </h2>
   <div v-for="city in savedCities" :key="city.id">
-    <h2 class="text-xl py-4 border-b-2 border-blue-500">
-      Tracked Cities({{ savedCities.length }})
-    </h2>
-    <CityCard :city="city" @click="goToCityView(city)" class="my-4" />
+    <CityCard :city="city" @click="goToCityView(city)" />
   </div>
 
   <p
@@ -37,6 +37,8 @@ const getCities = async () => {
 
   const weatherData = await Promise.all(requests);
 
+  await new Promise((res) => setTimeout(res, 1000));
+
   weatherData.forEach((value, index) => {
     savedCities.value[index].weather = value.data;
   });
@@ -54,6 +56,7 @@ const goToCityView = (city) => {
       value: city?.value,
     },
     query: {
+      id: city.id,
       lat: city.coords.lat,
       lon: city.coords.lon,
     },

@@ -3,7 +3,7 @@
     <Suspense>
       <AsyncStateView />
       <template #fallback>
-        <p>Loading...</p>
+        <StateViewShimmer />
       </template>
     </Suspense>
   </div>
@@ -11,4 +11,5 @@
 
 <script setup>
 import AsyncStateView from "../components/AsyncStateView.vue";
+import StateViewShimmer from "../components/Shimmers/StateViewShimmer.vue";
 </script>
