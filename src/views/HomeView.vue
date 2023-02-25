@@ -1,6 +1,6 @@
 <template>
-  <main class="container text-white">
-    <div class="pt-4 pb-8 relative">
+  <main class="container h-screen text-white">
+    <div class="py-4 relative">
       <input
         type="search"
         v-model="searchInput"
@@ -38,6 +38,15 @@
         </template>
       </ul>
     </div>
+
+    <div class="flex flex-col gap-4 py-4">
+      <Suspense>
+        <CityList />
+        <template #fallback>
+          <p>Loading...</p>
+        </template>
+      </Suspense>
+    </div>
   </main>
 </template>
 
@@ -45,6 +54,7 @@
 import { ref } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
+import CityList from "@/components/CityList.vue";
 
 const searchInput = ref("");
 const searchLimit = ref(5);
