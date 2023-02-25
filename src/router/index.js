@@ -18,10 +18,21 @@ const router = createRouter({
       name: "previewState",
       component: PreviewState,
       meta: {
-        title: "Preview Weather",
+        title: "State Weather",
       },
     },
   ],
+});
+
+router.beforeEach((to, from, next) => {
+  document.title = `${
+    to.params.state
+      ? `${
+          to.params.value === to.params.state ? "" : `${to.params.value + ", "}`
+        } ${to.params.state}`
+      : to.meta.title
+  } | Weather App`;
+  next();
 });
 
 export default router;
