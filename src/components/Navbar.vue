@@ -11,7 +11,12 @@
       </RouterLink>
       <div class="flex gap-3 flex-1 justify-end">
         <span class="text-xl cursor-pointer" @click="toggleModal">ℹ</span>
-        <span class="text-xl cursor-pointer">➕</span>
+        <span
+          v-if="route.query.preview"
+          class="text-xl cursor-pointer"
+          @click="addCity"
+          >➕</span
+        >
       </div>
 
       <Modal :modal-active="modalActive" @close-modal="toggleModal">
@@ -50,12 +55,40 @@
 
 <script setup>
 import { ref } from "@vue/reactivity";
-import { RouterLink } from "vue-router";
+import { uid } from "uid";
+import { RouterLink, useRoute, useRouter } from "vue-router";
 import Modal from "./Modal.vue";
 
 const modalActive = ref(null);
 const toggleModal = () => {
   modalActive.value = !modalActive.value;
+};
+
+const savedCities = ref([]);
+const route = useRoute();
+const router = useRouter();
+const addCity = () => {
+  if (localStorage.getItem("savedCities")) {
+    savedCities.value = JSON.parse(localStorage.getItem("savedCities"));
+  }
+
+  let locationObj = {
+    id: uid(),
+    state: route.params.state,
+    country: route.params.country,
+    value: route.params.value,
+    coords: {
+      lat: route.query.lat,
+      lon: route.query.lon,
+    },
+  };
+
+  savedCities.value.push(locationObj);
+  localStorage.setItem("savedCities", JSON.stringify(savedCities.value));
+
+  let query = Object.assign({}, route.query);
+  delete query.preview;
+  router.replace({ query });
 };
 </script>
 

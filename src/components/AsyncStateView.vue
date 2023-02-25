@@ -1,7 +1,10 @@
 <template>
   <div class="flex flex-col flex-1 items-center">
     <!-- Banner -->
-    <div class="bg-blue-700 text-white text-center w-full p-4">
+    <div
+      v-if="route.query.preview"
+      class="bg-blue-700 text-white text-center w-full p-4"
+    >
       <p>
         You are currently previewing this city, click the '➕' icon to start
         tracking the city.
@@ -10,9 +13,9 @@
 
     <!-- Weather Overview -->
     <div class="flex flex-col items-center text-white py-12">
-      <h1 class="text-4xl mb-2 capitalize">
+      <h1 class="text-3xl md:text-4xl mb-2 capitalize">
         <span v-if="searchValue !== route.params.state">
-          {{ route.params.value }}
+          {{ route.params.value + ", " }}
         </span>
         {{ route.params.state + ", " + route.params.country }}
       </h1>
